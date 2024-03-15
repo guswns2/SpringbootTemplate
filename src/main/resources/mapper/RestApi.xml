@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhj.template.mapper.RestApiMapper">
+    
+    <select id="getTest" parameterType="hashMap" resultType="com.jhj.template.dto.Test">
+        select idx, col1, col2 from test
+        where 1 = 1
+            <if test="idx != null">
+                    and idx = #{idx}
+            </if>
+            <if test="col1 != null and !col1.equals('')">
+                    and col1 = #{col1}
+            </if>
+            <if test="col2 != null and !col2.equals('')">
+                    and col2 = #{col2}
+            </if>
+        ;
+    </select>
+
+    <select id="getTest2" parameterType="hashMap" resultType="hashMap">
+        select idx, col1, col2 from test
+        where 1 = 1
+            <if test="idx != null">
+                    and idx = #{idx}
+            </if>
+            <if test="col1 != null and !col1.equals('')">
+                    and col1 = #{col1}
+            </if>
+            <if test="col2 != null and !col2.equals('')">
+                    and col2 = #{col2}
+            </if>
+        ;
+    </select>
+
+    <insert id="postTest" parameterType="com.jhj.template.dto.Test">
+        insert into test (idx, col1, col2)
+        values (#{idx}, #{col1}, #{col2});
+    </insert>
+
+    <update id="putTest" parameterType="com.jhj.template.dto.Test">
+        update test
+        set col1 = #{col1}, col2 = #{col2}
+        where idx = #{idx};
+    </update>
+
+    <update id="patchTest" parameterType="hashMap">
+        update test
+        set 
+            <if test="col1 != null and !col1.equals('')">
+                    col1 = #{col1}
+            </if>
+            <if test="col2 != null and !col2.equals('')">
+                    col2 = #{col2}
+            </if>
+        where idx = #{idx};
+    </update>
+
+    <delete id="deleteTest" parameterType="hashMap">
+        delete from test
+        where 1=1
+            <if test="idx != null and idx != 0">
+                    idx = #{idx}
+            </if>
+            <if test="col1 != null and !col1.equals('')">
+                    col1 = #{col1}
+            </if>
+            <if test="col2 != null and !col2.equals('')">
+                    col2 = #{col2}
+            </if>
+        ;
+    </delete>
+    
+</mapper>

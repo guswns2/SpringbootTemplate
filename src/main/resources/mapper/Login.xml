@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhj.template.mapper.LoginMapper">
+    
+    <select id="findByUsername" parameterType="com.jhj.template.dto.User" resultType="com.jhj.template.dto.User">
+        select username, password, role, refreshToken
+        from user
+        where username = #{username};
+    </select>
+
+    <select id="findByRefreshToken" parameterType="com.jhj.template.dto.User" resultType="com.jhj.template.dto.User">
+        select username, password, role, refreshToken
+        from user
+        where refreshToken = #{refreshToken};
+    </select>
+
+    <update id="updateRefreshToken" parameterType="com.jhj.template.dto.User">
+        update user
+        set refreshToken = #{refreshToken}
+        where username = #{username};
+    </update>
+
+    <insert id="signup" parameterType="com.jhj.template.dto.User">
+        insert into user (username, password, role, refreshToken)
+        values (#{username}, #{password}, #{role}, #{refreshToken});
+    </insert>
+
+</mapper>

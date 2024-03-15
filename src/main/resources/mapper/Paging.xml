@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhj.template.mapper.PagingMapper">
+
+    <select id="pagingTest" parameterType="hashMap" resultType="com.jhj.template.dto.Test">
+        select 
+            <choose>
+                <when test='!"Y".equals(isTotalCnt)'>
+                    <!-- informix에서는 이 구문 -->
+                    <!-- <if test='startRow != null and rowsPerPage != null'>
+                        SKIP #{startRow} FIRST #{rowsPerPage}
+                    </if>	 -->
+                    idx, col1, col2
+                </when>
+                <otherwise>
+                    count(*) as totalDataCnt
+                </otherwise>
+            </choose>
+        from test
+        where 1 = 1
+            <if test="idx != null">
+                    and idx = #{idx}
+            </if>
+            <if test="col1 != null and !col1.equals('')">
+                    and col1 = #{col1}
+            </if>
+            <if test="col2 != null and !col2.equals('')">
+                    and col2 = #{col2}
+            </if>
+        <!-- sqlite에서는 이 구문 -->
+        <choose>
+            <when test='!"Y".equals(isTotalCnt)'>
+                <if test='startRow != null and rowsPerPage != null'>
+                    LIMIT #{rowsPerPage} OFFSET #{startRow}
+                </if>
+            </when>
+        </choose>	
+        ;
+    </select>
+
+    <select id="pagingTest2" parameterType="hashMap" resultType="hashMap">
+        select 
+            <choose>
+                <when test='!"Y".equals(isTotalCnt)'>
+                    <!-- informix에서는 이 구문 -->
+                    <!-- <if test='startRow != null and rowsPerPage != null'>
+                        SKIP #{startRow} FIRST #{rowsPerPage}
+                    </if>	 -->
+                    idx, col1, col2
+                </when>
+                <otherwise>
+                    count(*) as totalDataCnt
+                </otherwise>
+            </choose>
+        from test
+        where 1 = 1
+            <if test="idx != null">
+                    and idx = #{idx}
+            </if>
+            <if test="col1 != null and !col1.equals('')">
+                    and col1 = #{col1}
+            </if>
+            <if test="col2 != null and !col2.equals('')">
+                    and col2 = #{col2}
+            </if>
+        <!-- sqlite에서는 이 구문 -->
+        <choose>
+            <when test='!"Y".equals(isTotalCnt)'>
+                <if test='startRow != null and rowsPerPage != null'>
+                    LIMIT #{rowsPerPage} OFFSET #{startRow}
+                </if>
+            </when>
+        </choose>	
+        ;
+    </select>
+
+</mapper>
