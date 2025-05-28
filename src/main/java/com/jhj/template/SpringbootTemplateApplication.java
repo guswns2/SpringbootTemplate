@@ -16,8 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.util.ObjectUtils;
 
 import com.jhj.template.common.Properties;
-import com.jhj.template.utils.StringBuilderPlus;
-
+import com.jhj.template.common.utils.StringBuilderPlus;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
