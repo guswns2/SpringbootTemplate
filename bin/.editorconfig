@@ -1,0 +1,11 @@
+# EditorConfig helps developers define and maintain consistent coding styles between different editors and IDEs
+# For more information about the properties used in this file, please see the EditorConfig documentation: https://editorconfig.org
+
+# editorconfig 플러그인 설치해야 함
+
+# top-most EditorConfig file
+root = true
+
+[*]
+indent_style = tab
+tab_width = 2

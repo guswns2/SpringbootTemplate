@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+  <!--springProfile 태그를 사용하면 logback 설정파일에서 복수 개의 프로파일을 설정할 수 있다.-->
+  <springProfile name="dev">
+    <property resource="application-dev.properties"/>
+  </springProfile>
+  <springProfile name="prod">
+    <property resource="application-prod.properties"/>
+  </springProfile>
+
+  <!--Environment 내의 프로퍼티들을 개별적으로 설정할 수도 있다.-->
+  <!-- <property name="log_profile" value="${property}"/> -->
+  <property name="log_level" value="${logging.level.root}"/>
+  <property name="log_pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%t] %C %M %L - %n %m %n"/>
+
+
+    <!-- Send debug messages to System.out -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%green([%d{HH:mm:ss.SSS}]) %highlight([%p]) %magenta([%t]) %cyan([%C %M]) %yellow(%L) - %n  %m %n</pattern>
+      <!-- 파일 [시간] [레벨] [스레드 클래스 메서드] [줄] - 메세지 -->
+		</encoder>
+	</appender>
+
+	<!-- debug message to file -->
+	<appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 파일 레벨 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>DEBUG</level>
+    </filter>
+
+    <!-- 파일 저장 경로 -->
+		<!-- 개발 및 운영에서 사용하는 경로 -->
+		<!-- <file>./log/debug/debug.log</file>  -->
+		<!-- 로컬에서 사용하는 경로는 개발자가 편한 곳으로 지정 -->
+		<file>/home/fonia/log/debug/debug.log</file>
+
+    <!-- 로그 형식 -->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${log_pattern}</pattern>
+		</encoder>
+
+    <!-- 롤링 정책 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- 파일 경로 + 파일명 -->
+			<!-- <fileNamePattern>./log/debug/debug.log.%d{yyyy-MM-dd_HH}_%i</fileNamePattern> -->
+			<fileNamePattern>/home/fonia/log/debug/debug.log.%d{yyyy-MM-dd_HH}_%i</fileNamePattern>
+
+      <!-- 일자별 로그파일 최대 보관 주기(일). 주기 지나면 자동 삭제 -->
+			<maxHistory>30</maxHistory>
+
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <!-- 파일 최대 용량 -->
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<!-- info message to file -->
+	<appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 파일 레벨 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+
+    <!-- 파일 저장 경로 -->
+		<!-- 개발 및 운영에서 사용하는 경로 -->
+		<!-- <file>./log/info/info.log</file>  -->
+		<!-- 로컬에서 사용하는 경로는 개발자가 편한 곳으로 지정 -->
+		<file>/home/fonia/log/info/info.log</file>
+
+    <!-- 로그 형식 -->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${log_pattern}</pattern>
+		</encoder>
+
+    <!-- 롤링 정책 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- 파일 경로 + 파일명 -->
+			<!-- <fileNamePattern>./log/info/info.log.%d{yyyy-MM-dd_HH}_%i</fileNamePattern> -->
+			<fileNamePattern>/home/fonia/log/info/info.log.%d{yyyy-MM-dd_HH}_%i</fileNamePattern>
+
+      <!-- 일자별 로그파일 최대 보관 주기(일). 주기 지나면 자동 삭제 -->
+			<maxHistory>30</maxHistory>
+
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <!-- 파일 최대 용량 -->
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<!-- error message to file -->
+	<appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		   <!-- 파일 레벨 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>ERROR</level>
+    </filter>
+
+    <!-- 파일 저장 경로 -->
+		<!-- 개발 및 운영에서 사용하는 경로 -->
+		<!-- <file>./log/error/error.log</file>  -->
+		<!-- 로컬에서 사용하는 경로는 개발자가 편한 곳으로 지정 -->
+		<file>/home/fonia/log/error/error.log</file>
+
+    <!-- 로그 형식 -->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${log_pattern}</pattern>
+		</encoder>
+
+    <!-- 롤링 정책 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- 파일 경로 + 파일명 -->
+			<!-- <fileNamePattern>./log/error/error.log.%d{yyyy-MM-dd_HH}_%i</fileNamePattern> -->
+			<fileNamePattern>/home/fonia/log/error/error.log.%d{yyyy-MM-dd_HH}_%i</fileNamePattern>
+
+      <!-- 일자별 로그파일 최대 보관 주기(일). 주기 지나면 자동 삭제 -->
+			<maxHistory>30</maxHistory>
+
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <!-- 파일 최대 용량 -->
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+	
+	
+	<!-- log4jdbc 옵션 설정 --> 
+	<logger name="jdbc" level="OFF"/> 
+	<!-- 커넥션 open close 이벤트를 로그로 남긴다. --> 
+	<logger name="jdbc.connection" level="OFF"/> 
+	<!-- SQL문만을 로그로 남기며, PreparedStatement일 경우 관련된 argument 값으로 대체된 SQL문이 보여진다. --> 
+	<logger name="jdbc.sqlonly" level="OFF"/> 
+	<!-- SQL문과 해당 SQL을 실행시키는데 수행된 시간 정보(milliseconds)를 포함한다. --> 
+	<logger name="jdbc.sqltiming" level="DEBUG"/> 
+	<!-- ResultSet을 제외한 모든 JDBC 호출 정보를 로그로 남긴다. 많은 양의 로그가 생성되므로 특별히 JDBC 문제를 추적해야 할 필요가 있는 경우를 제외하고는 사용을 권장하지 않는다. --> 
+	<logger name="jdbc.audit" level="OFF"/> 
+	<!-- ResultSet을 포함한 모든 JDBC 호출 정보를 로그로 남기므로 매우 방대한 양의 로그가 생성된다. --> 
+	<logger name="jdbc.resultset" level="OFF"/> 
+	<!-- SQL 결과 조회된 데이터의 table을 로그로 남긴다. --> 
+	<logger name="jdbc.resultsettable" level="OFF"/>
+
+	<!-- 이 부분은 디버그 로그를 출력하지 않을 위치를 설정합니다 -->
+    <logger name="org.apache.kafka" level="ERROR">
+        <appender-ref ref="console"/>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>DENY</onMatch>
+        </filter>
+    </logger>
+
+		<logger name="org.springframework.kafka" level="ERROR">
+        <appender-ref ref="console"/>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>DENY</onMatch>
+        </filter>
+    </logger>
+
+		<logger name="org.eclipse.paho.client" level="ERROR">
+        <appender-ref ref="console"/>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>DENY</onMatch>
+        </filter>
+    </logger>
+
+	<!-- TRACE  <  DEBUG  <  INFO  <  WARN  <  ERROR  -->
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="debug"/>
+		    <appender-ref ref="info"/>
+		    <appender-ref ref="error"/>
+    </root>
+</configuration>
