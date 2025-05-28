@@ -4,7 +4,6 @@ import com.jhj.template.filter.JsonLoginFilter;
 import com.jhj.template.filter.JwtAuthenticationFilter;
 import com.jhj.template.handler.LoginFailureHandler;
 import com.jhj.template.handler.LoginSuccessHandler;
-import com.jhj.template.mapper.LoginMapper;
 import com.jhj.template.service.JwtService;
 import com.jhj.template.service.LoginService;
 import com.fasterxml.jackson.databind.ObjectMapper;
