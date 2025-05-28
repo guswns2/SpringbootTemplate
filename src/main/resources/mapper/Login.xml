@@ -5,24 +5,24 @@
     <select id="findByUsername" parameterType="com.jhj.template.dto.User" resultType="com.jhj.template.dto.User">
         select username, password, role, refreshToken
         from user
-        where username = #{username};
+        where username = #{username}
     </select>
 
     <select id="findByRefreshToken" parameterType="com.jhj.template.dto.User" resultType="com.jhj.template.dto.User">
         select username, password, role, refreshToken
         from user
-        where refreshToken = #{refreshToken};
+        where refreshToken = #{refreshToken}
     </select>
 
     <update id="updateRefreshToken" parameterType="com.jhj.template.dto.User">
         update user
         set refreshToken = #{refreshToken}
-        where username = #{username};
+        where username = #{username}
     </update>
 
     <insert id="signup" parameterType="com.jhj.template.dto.User">
         insert into user (username, password, role, refreshToken)
-        values (#{username}, #{password}, #{role}, #{refreshToken});
+        values (#{username}, #{password}, #{role}, #{refreshToken})
     </insert>
 
 </mapper>
