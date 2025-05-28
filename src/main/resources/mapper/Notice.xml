@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhj.template.notice.mapper.NoticeMapper">
+    
+    <select id="getNoticeList" parameterType="hashMap" resultType="com.jhj.template.notice.model.Notice">
+        select idx, title, userId, createdAt, content
+        from notice
+        <where>
+            <if test="title != null and !''.equals(title)">
+                and title like '%' || #{title} || '%'
+            </if>
+            <if test="userId != null and !''.equals(userId)">
+                and userId like '%' || #{userId} || '%'
+            </if>
+        </where>
+    </select>
+    
+</mapper>
