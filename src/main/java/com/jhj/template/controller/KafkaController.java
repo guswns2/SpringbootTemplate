@@ -21,27 +21,27 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class KafkaController {
 
-	@Value("${spring.kafka.topic.name}")
-	private String topicName;
+    @Value("${spring.kafka.topic.name}")
+    private String topicName;
 
-	@Value("${spring.kafka.consumer.group-id}")
-	private String groupId;
+    @Value("${spring.kafka.consumer.group-id}")
+    private String groupId;
 
-	@Autowired
-	KafkaTemplate<String, Object> kafkaTemplate;
+    @Autowired
+    KafkaTemplate<String, Object> kafkaTemplate;
 
-	@GetMapping("/sendMessage")
-	public ResponseEntity<Void> sendMessage(@RequestParam String message) {
-		System.out.printf("Producer Topic : %s%n", topicName);
-		System.out.printf("Producer Message : %s%n", message);
+    @GetMapping("/sendMessage")
+    public ResponseEntity<Void> sendMessage(@RequestParam String message) {
+        System.out.printf("Producer Topic : %s%n", topicName);
+        System.out.printf("Producer Message : %s%n", message);
 
-		kafkaTemplate.send(topicName, message);
-		return ResponseEntity.ok().build();
-	}
+        kafkaTemplate.send(topicName, message);
+        return ResponseEntity.ok().build();
+    }
 
-	@KafkaListener(topics = "my-topic", groupId = "consumer_group1")
-	public void consumedMessage(String message) throws IOException {
-		System.out.printf("Consumed Topic : %s%n", topicName);
-		System.out.printf("Consumed Message : %s%n", message);
-	}
+    @KafkaListener(topics = "my-topic", groupId = "consumer_group1")
+    public void consumedMessage(String message) throws IOException {
+        System.out.printf("Consumed Topic : %s%n", topicName);
+        System.out.printf("Consumed Message : %s%n", message);
+    }
 }

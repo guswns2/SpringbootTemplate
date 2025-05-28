@@ -16,24 +16,25 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class MyBatisConfig {
 
-  @Bean
-  public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+    @Bean
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 
-    final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-    sessionFactory.setDataSource(dataSource);
-    PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource);
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
-    String dbPath = "classpath:mapper/*.xml";
+        String dbPath = "classpath:mapper/*.xml";
 
-    sessionFactory.setMapperLocations(resolver.getResources(dbPath));
+        sessionFactory.setMapperLocations(resolver.getResources(dbPath));
 
-    return sessionFactory.getObject();
-  }
+        return sessionFactory.getObject();
+    }
 
-  @Bean
-  public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) throws Exception {
-    final SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
-    return sqlSessionTemplate;
-  }
+    @Bean
+    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory)
+            throws Exception {
+        final SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
+        return sqlSessionTemplate;
+    }
 
 }

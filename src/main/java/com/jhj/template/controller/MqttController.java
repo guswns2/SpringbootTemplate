@@ -22,36 +22,36 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api6")
 public class MqttController {
 
-	@Autowired
-	MqttConfig mqttConfig;
+    @Autowired
+    MqttConfig mqttConfig;
 
-	@Autowired
-	MqttClient mqttClient;
+    @Autowired
+    MqttClient mqttClient;
 
-	@GetMapping("/publishMessage")
-	public ResponseEntity<Void> publishMessage(@RequestParam String message) {
-		// log.info(mqttClient + "");
-		log.info("Publish Topic : topic1");
-		log.info("Publish Message : " + message);
+    @GetMapping("/publishMessage")
+    public ResponseEntity<Void> publishMessage(@RequestParam String message) {
+        // log.info(mqttClient + "");
+        log.info("Publish Topic : topic1");
+        log.info("Publish Message : " + message);
 
-		MqttMessage mqttMessage = new MqttMessage();
-		mqttMessage.setPayload(message.getBytes());
+        MqttMessage mqttMessage = new MqttMessage();
+        mqttMessage.setPayload(message.getBytes());
 
-		try {
-			mqttClient.connect(mqttConfig.mqttConnectOptions());
-			mqttClient.publish("topic1", mqttMessage);
-			mqttClient.disconnect();
-		} catch (MqttException e) {
-			e.printStackTrace();
-		}
-		return ResponseEntity.ok().build();
-	}
+        try {
+            mqttClient.connect(mqttConfig.mqttConnectOptions());
+            mqttClient.publish("topic1", mqttMessage);
+            mqttClient.disconnect();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok().build();
+    }
 
-	@ServiceActivator(inputChannel = "mqttInputChannel")
-	public void receiveMessage(String payload) {
-		// payload처리
-		log.info("Subscribe message : topic1");
-		log.info("Received message : " + payload);
-	}
+    @ServiceActivator(inputChannel = "mqttInputChannel")
+    public void receiveMessage(String payload) {
+        // payload처리
+        log.info("Subscribe message : topic1");
+        log.info("Received message : " + payload);
+    }
 
 }

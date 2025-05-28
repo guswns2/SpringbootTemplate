@@ -1,0 +1,16 @@
+1. VSCode Extension > Language Support for Java(TM) by Red Hat 설치
+
+2. 해당 프로젝트에서 Default Formatter를 Google Java Style로 설정
+    .vscode/setting.json에 옵션 추가
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "[java]": {
+        "editor.defaultFormatter": "redhat.java",
+        "editor.detectIndentation": false
+    },
+    "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+    "java.format.settings.profile": "GoogleStyle"
+
+3. 옵션 커스터마이징
+    Ctrl + Shift + P > Java: Open Java Formatter Settings with Preiview 실행 화면에서 옵션 커스터마이징
+    .vscode/eclipse-java-google-style.xml 파일 생성됨

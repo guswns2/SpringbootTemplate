@@ -23,64 +23,64 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/api4")
 public class RedisController {
 
-	@Autowired
-	RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    RedisTemplate<String, Object> redisTemplate;
 
-	@GetMapping("/redisGet")
-	public Response<Object> redisGet(@RequestParam(value = "key", required = false) String key) {
-		Response<Object> res = new Response<Object>();
+    @GetMapping("/redisGet")
+    public Response<Object> redisGet(@RequestParam(value = "key", required = false) String key) {
+        Response<Object> res = new Response<Object>();
 
-		try {
-			Object result = redisTemplate.opsForValue().get(key);
+        try {
+            Object result = redisTemplate.opsForValue().get(key);
 
-			res.setData(result);
-			res.setMessage("Redis get 성공");
+            res.setData(result);
+            res.setMessage("Redis get 성공");
 
-		} catch (Exception e) {
-			log.error("Redis get 실패", e);
-			res.setRespone(RESPONSE.FAIL);
-			res.setMessage("Redis get 실패");
-		}
+        } catch (Exception e) {
+            log.error("Redis get 실패", e);
+            res.setRespone(RESPONSE.FAIL);
+            res.setMessage("Redis get 실패");
+        }
 
-		return res;
-	}
+        return res;
+    }
 
-	@GetMapping("/redisSet")
-	public Response<String> redisSet() {
-		Response<String> res = new Response<String>();
+    @GetMapping("/redisSet")
+    public Response<String> redisSet() {
+        Response<String> res = new Response<String>();
 
-		try {
-			Test test = new Test();
-			test.setIdx(1);
-			test.setCol1("a");
-			test.setCol2("b");
+        try {
+            Test test = new Test();
+            test.setIdx(1);
+            test.setCol1("a");
+            test.setCol2("b");
 
-			redisTemplate.opsForValue().set("0", "test", 10, TimeUnit.MINUTES);
-			redisTemplate.opsForValue().set("1", test, 10, TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set("0", "test", 10, TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set("1", test, 10, TimeUnit.MINUTES);
 
-			res.setData("Redis set 성공");
-		} catch (Exception e) {
-			log.error("Redis set 실패", e);
-			res.setData("Redis set 실패");
-		}
+            res.setData("Redis set 성공");
+        } catch (Exception e) {
+            log.error("Redis set 실패", e);
+            res.setData("Redis set 실패");
+        }
 
-		return res;
-	}
+        return res;
+    }
 
-	@GetMapping("/redisDelete")
-	public Response<String> redisDelete(@RequestParam(value = "key", required = false) String key) {
-		Response<String> res = new Response<String>();
+    @GetMapping("/redisDelete")
+    public Response<String> redisDelete(@RequestParam(value = "key", required = false) String key) {
+        Response<String> res = new Response<String>();
 
-		try {
-			redisTemplate.delete(key);
+        try {
+            redisTemplate.delete(key);
 
-			res.setData("Redis delete 성공");
-		} catch (Exception e) {
-			log.error("Redis delete 실패", e);
-			res.setData("Redis delete 실패");
-		}
+            res.setData("Redis delete 성공");
+        } catch (Exception e) {
+            log.error("Redis delete 실패", e);
+            res.setData("Redis delete 실패");
+        }
 
-		return res;
-	}
+        return res;
+    }
 
 }

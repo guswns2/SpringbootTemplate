@@ -10,12 +10,12 @@ import com.jhj.template.dto.Test;
 @Repository
 public interface CacheMapper {
 
-	public List<Test> getCacheAll();
+    public List<Test> getCacheAll();
 
-	public List<Test> getCacheOne(HashMap<String, Object> param);
+    public List<Test> getCacheOne(HashMap<String, Object> param);
 
-	public int updateCache(Test test);
+    public int updateCache(Test test);
 
-	public int deleteCache(HashMap<String, Object> param);
+    public int deleteCache(HashMap<String, Object> param);
 
 }
