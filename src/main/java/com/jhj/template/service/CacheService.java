@@ -19,37 +19,37 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CacheService {
 
-	@Autowired
-	CacheMapper cacheMapper;
+    @Autowired
+    CacheMapper cacheMapper;
 
-	@Cacheable(value = "testAll", key = "1") // value: 캐시 저장소 이름, key: 캐시 데이터
-	public List<Test> getCacheAll() {
-		List<Test> res = cacheMapper.getCacheAll();
-		log.debug("getCacheAll mapper 메서드 호출");
-		return res;
-	}
+    @Cacheable(value = "testAll", key = "1") // value: 캐시 저장소 이름, key: 캐시 데이터
+    public List<Test> getCacheAll() {
+        List<Test> res = cacheMapper.getCacheAll();
+        log.debug("getCacheAll mapper 메서드 호출");
+        return res;
+    }
 
-	@Cacheable(value = "test", key = "#param.get('idx')")
-	public List<Test> getCacheOne(HashMap<String, Object> param) {
-		List<Test> res = cacheMapper.getCacheOne(param);
-		log.debug("getCacheOne mapper 메서드 호출");
-		return res;
-	}
+    @Cacheable(value = "test", key = "#param.get('idx')")
+    public List<Test> getCacheOne(HashMap<String, Object> param) {
+        List<Test> res = cacheMapper.getCacheOne(param);
+        log.debug("getCacheOne mapper 메서드 호출");
+        return res;
+    }
 
-	@CachePut(value = "test", key = "#test.idx")
-	public List<Test> updateCache(Test test) {
-		int res = cacheMapper.updateCache(test);
+    @CachePut(value = "test", key = "#test.idx")
+    public List<Test> updateCache(Test test) {
+        int res = cacheMapper.updateCache(test);
 
-		List<Test> result = new ArrayList<Test>();
-		if (res > 0) {
-			result.add(test);
-		}
-		return result;
-	}
+        List<Test> result = new ArrayList<Test>();
+        if (res > 0) {
+            result.add(test);
+        }
+        return result;
+    }
 
-	@CacheEvict(value = "test", allEntries = true)
-	public int deleteCache(HashMap<String, Object> param) {
-		int res = cacheMapper.deleteCache(param);
-		return res;
-	}
+    @CacheEvict(value = "test", allEntries = true)
+    public int deleteCache(HashMap<String, Object> param) {
+        int res = cacheMapper.deleteCache(param);
+        return res;
+    }
 }

@@ -30,107 +30,110 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api7")
 public class CacheController {
 
-	@Autowired
-	CacheService cacheService;
+    @Autowired
+    CacheService cacheService;
 
-	// SpringBoot 내장 캐시 테스트
-	@Autowired
-	CacheManager cacheManager;
+    // SpringBoot 내장 캐시 테스트
+    @Autowired
+    CacheManager cacheManager;
 
-	@GetMapping(value = "/getCacheAll")
-	public Response<Test> getCacheAll() {
+    @GetMapping(value = "/getCacheAll")
+    public Response<Test> getCacheAll() {
 
-		Response<Test> res = new Response<Test>();
+        Response<Test> res = new Response<Test>();
 
-		try {
-			List<Test> result = cacheService.getCacheAll();
+        try {
+            List<Test> result = cacheService.getCacheAll();
 
-			res.setDataList(result);
+            res.setDataList(result);
 
-			// 캐시데이터 확인
-			log.debug("getCacheAllgetCacheAllgetCacheAll");
-			Collection<String> cacheNames = cacheManager.getCacheNames();
-			log.debug(cacheNames + "");
+            // 캐시데이터 확인
+            log.debug("getCacheAllgetCacheAllgetCacheAll");
+            Collection<String> cacheNames = cacheManager.getCacheNames();
+            log.debug(cacheNames + "");
 
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			res.setRespone(RESPONSE.FAIL);
-		}
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            res.setRespone(RESPONSE.FAIL);
+        }
 
-		return res;
-	}
+        return res;
+    }
 
-	@GetMapping(value = "/getCacheOne")
-	public Response<Test> getCacheOne(@RequestParam(value = "idx", required = false) Integer idx,
-			@RequestParam(value = "col1", defaultValue = "") String col1,
-			@RequestParam(value = "col2", defaultValue = "") String col2) {
+    @GetMapping(value = "/getCacheOne")
+    public Response<Test> getCacheOne(@RequestParam(value = "idx", required = false) Integer idx,
+            @RequestParam(value = "col1", defaultValue = "") String col1,
+            @RequestParam(value = "col2", defaultValue = "") String col2) {
 
-		HashMap<String, Object> param = new HashMap<String, Object>();
-		Response<Test> res = new Response<Test>();
+        HashMap<String, Object> param = new HashMap<String, Object>();
+        Response<Test> res = new Response<Test>();
 
-		try {
-			param.put("idx", idx);
-			param.put("col1", col1);
-			param.put("col2", col2);
-			List<Test> result = cacheService.getCacheOne(param);
+        try {
+            param.put("idx", idx);
+            param.put("col1", col1);
+            param.put("col2", col2);
+            List<Test> result = cacheService.getCacheOne(param);
 
-			res.setDataList(result);
+            res.setDataList(result);
 
-			// 캐시데이터 확인
-			log.debug("getCacheOnegetCacheOnegetCacheOne");
-			Collection<String> cacheNames = cacheManager.getCacheNames();
-			log.debug(cacheNames + "");
+            // 캐시데이터 확인
+            log.debug("getCacheOnegetCacheOnegetCacheOne");
+            Collection<String> cacheNames = cacheManager.getCacheNames();
+            log.debug(cacheNames + "");
 
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			res.setRespone(RESPONSE.FAIL);
-		}
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            res.setRespone(RESPONSE.FAIL);
+        }
 
-		return res;
-	}
+        return res;
+    }
 
-	@PutMapping(value = "/updateCache")
-	public Response<Test> updateCache(@RequestBody(required = true) Request<Test> req) {
+    @PutMapping(value = "/updateCache")
+    public Response<Test> updateCache(@RequestBody(required = true) Request<Test> req) {
 
-		Response<Test> res = new Response<Test>();
+        Response<Test> res = new Response<Test>();
 
-		try {
-			Test test = req.getParam();
-			List<Test> result = cacheService.updateCache(test);
+        try {
+            Test test = req.getParam();
+            List<Test> result = cacheService.updateCache(test);
 
-			res.setDataList(result);
-			res.setMessage("DB UPDATE SUCCESS");
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			res.setRespone(RESPONSE.FAIL);
-		}
+            res.setDataList(result);
+            res.setMessage("DB UPDATE SUCCESS");
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            res.setRespone(RESPONSE.FAIL);
+        }
 
-		return res;
-	}
+        return res;
+    }
 
-	@DeleteMapping(value = "/deleteCache")
-	public Response<Integer> deleteCache(@RequestParam(value = "idx", required = false) Integer idx, // int는 null 허용 X
-			@RequestParam(value = "col1", defaultValue = "") String col1,
-			@RequestParam(value = "col2", defaultValue = "") String col2) {
+    @DeleteMapping(value = "/deleteCache")
+    public Response<Integer> deleteCache(@RequestParam(value = "idx", required = false) Integer idx, // int는
+                                                                                                     // null
+                                                                                                     // 허용
+                                                                                                     // X
+            @RequestParam(value = "col1", defaultValue = "") String col1,
+            @RequestParam(value = "col2", defaultValue = "") String col2) {
 
-		HashMap<String, Object> param = new HashMap<String, Object>();
-		Response<Integer> res = new Response<Integer>();
+        HashMap<String, Object> param = new HashMap<String, Object>();
+        Response<Integer> res = new Response<Integer>();
 
-		try {
-			param.put("idx", idx);
-			param.put("col1", col1);
-			param.put("col2", col2);
-			int result = cacheService.deleteCache(param);
-			if (result < 1) {
-				res.setRespone(Constants.RESPONSE.FAIL);
-			}
-			res.setData(result);
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			res.setRespone(Constants.RESPONSE.FAIL);
-		}
+        try {
+            param.put("idx", idx);
+            param.put("col1", col1);
+            param.put("col2", col2);
+            int result = cacheService.deleteCache(param);
+            if (result < 1) {
+                res.setRespone(Constants.RESPONSE.FAIL);
+            }
+            res.setData(result);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            res.setRespone(Constants.RESPONSE.FAIL);
+        }
 
-		return res;
-	}
+        return res;
+    }
 
 }

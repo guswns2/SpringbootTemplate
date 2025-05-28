@@ -10,8 +10,8 @@ import com.jhj.template.dto.Test;
 @Repository
 public interface PagingMapper {
 
-	public List<Test> pagingTest(HashMap<String, Object> param);
+    public List<Test> pagingTest(HashMap<String, Object> param);
 
-	public List<Object> pagingTest2(HashMap<String, Object> param);
+    public List<Object> pagingTest2(HashMap<String, Object> param);
 
 }

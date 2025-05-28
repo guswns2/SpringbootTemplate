@@ -10,17 +10,17 @@ import com.jhj.template.dto.Test;
 @Repository
 public interface RestApiMapper {
 
-	public List<Test> getTest(HashMap<String, Object> param);
+    public List<Test> getTest(HashMap<String, Object> param);
 
-	public List<Object> getTest2(HashMap<String, Object> param);
+    public List<Object> getTest2(HashMap<String, Object> param);
 
-	public int postTest(Test test);
+    public int postTest(Test test);
 
-	public int putTest(Test test);
+    public int putTest(Test test);
 
-	public int patchTest(HashMap<String, Object> param);
+    public int patchTest(HashMap<String, Object> param);
 
-	public int deleteTest(HashMap<String, Object> param);
+    public int deleteTest(HashMap<String, Object> param);
 
 }
 

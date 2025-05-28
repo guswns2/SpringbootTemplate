@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 public class Test extends TotalDataCnt {
 
-	@Schema(description = "인덱스")
-	private Integer idx;
+    @Schema(description = "인덱스")
+    private Integer idx;
 
-	private String col1, col2;
+    private String col1, col2;
 
 }

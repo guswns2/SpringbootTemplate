@@ -12,19 +12,19 @@ import com.jhj.template.mapper.PagingMapper;
 @Service
 public class PagingService implements PagingMapper {
 
-	@Autowired
-	PagingMapper pagingMapper;
+    @Autowired
+    PagingMapper pagingMapper;
 
-	@Override
-	public List<Test> pagingTest(HashMap<String, Object> param) {
-		List<Test> res = pagingMapper.pagingTest(param);
-		return res;
-	}
+    @Override
+    public List<Test> pagingTest(HashMap<String, Object> param) {
+        List<Test> res = pagingMapper.pagingTest(param);
+        return res;
+    }
 
-	@Override
-	public List<Object> pagingTest2(HashMap<String, Object> param) {
-		List<Object> res = pagingMapper.pagingTest2(param);
-		return res;
-	}
+    @Override
+    public List<Object> pagingTest2(HashMap<String, Object> param) {
+        List<Object> res = pagingMapper.pagingTest2(param);
+        return res;
+    }
 
 }

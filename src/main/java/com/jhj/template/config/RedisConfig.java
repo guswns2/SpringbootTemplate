@@ -28,50 +28,52 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RedisConfig {
 
-	@Value("${spring.redis.host}")
-	private String host;
+    @Value("${spring.redis.host}")
+    private String host;
 
-	@Value("${spring.redis.port}")
-	private int port;
+    @Value("${spring.redis.port}")
+    private int port;
 
-	// lettuce
-	@Bean
-	public RedisConnectionFactory redisConnectionFactory() {
-		return new LettuceConnectionFactory(host, port);
-	}
+    // lettuce
+    @Bean
+    public RedisConnectionFactory redisConnectionFactory() {
+        return new LettuceConnectionFactory(host, port);
+    }
 
-	// setKeySerializer, setValueSerializer 설정으로 redis-cli를 통해 직접 데이터를 보는게 가능하다.
-	@Bean
-	public RedisTemplate<String, Object> redisTemplate() {
-		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+    // setKeySerializer, setValueSerializer 설정으로 redis-cli를 통해 직접 데이터를 보는게 가능하다.
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate() {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 
-		redisTemplate.setConnectionFactory(redisConnectionFactory());
+        redisTemplate.setConnectionFactory(redisConnectionFactory());
 
-		// redis-cli에서 볼 수 있도록 직렬화
-		redisTemplate.setKeySerializer(new StringRedisSerializer());
-		redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        // redis-cli에서 볼 수 있도록 직렬화
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
 
-		return redisTemplate;
-	}
+        return redisTemplate;
+    }
 
-	// Redis에서 Cache 관리 설정
-	@Bean
-	// @Primary
-	public CacheManager contentCacheManager(RedisConnectionFactory cf) {
-		RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-				.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-				.serializeValuesWith(
-						RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
-				.entryTtl(Duration.ofMinutes(3L)); // 캐시 수명 30분
+    // Redis에서 Cache 관리 설정
+    @Bean
+    // @Primary
+    public CacheManager contentCacheManager(RedisConnectionFactory cf) {
+        RedisCacheConfiguration redisCacheConfiguration =
+                RedisCacheConfiguration.defaultCacheConfig()
+                        .serializeKeysWith(RedisSerializationContext.SerializationPair
+                                .fromSerializer(new StringRedisSerializer()))
+                        .serializeValuesWith(RedisSerializationContext.SerializationPair
+                                .fromSerializer(new GenericJackson2JsonRedisSerializer()))
+                        .entryTtl(Duration.ofMinutes(3L)); // 캐시 수명 30분
 
-		return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(cf).cacheDefaults(redisCacheConfiguration)
-				.build();
-	}
+        return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(cf)
+                .cacheDefaults(redisCacheConfiguration).build();
+    }
 
-	// Redis에서 Session 관리 설정
-	@Bean
-	public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
-		// redis-cli에서 볼 수 있도록 직렬화
-		return new GenericJackson2JsonRedisSerializer();
-	}
+    // Redis에서 Session 관리 설정
+    @Bean
+    public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
+        // redis-cli에서 볼 수 있도록 직렬화
+        return new GenericJackson2JsonRedisSerializer();
+    }
 }

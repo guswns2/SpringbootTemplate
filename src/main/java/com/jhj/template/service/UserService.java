@@ -11,13 +11,13 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-  private final LoginMapper loginMapper;
-  private final PasswordEncoder passwordEncoder;
+    private final LoginMapper loginMapper;
+    private final PasswordEncoder passwordEncoder;
 
-  public void signup(User user) {
+    public void signup(User user) {
 
-    user.passwordEncode(passwordEncoder);
-    loginMapper.signup(user);
+        user.passwordEncode(passwordEncoder);
+        loginMapper.signup(user);
 
-  }
+    }
 }

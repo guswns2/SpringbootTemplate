@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Socket {
-  private String sender, msg, roomId;
+    private String sender, msg, roomId;
 
 }

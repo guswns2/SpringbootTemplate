@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class TotalDataCnt {
 
-	@JsonIgnore
-	private int totalDataCnt;
+    @JsonIgnore
+    private int totalDataCnt;
 
 }

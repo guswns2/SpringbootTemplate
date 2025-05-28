@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Primary;
 @EnableCaching
 public class CacheConfig {
 
-	@Bean
-	@Primary
-	public CacheManager cacheManager() {
-		CacheManager cacheManager = new ConcurrentMapCacheManager("testAll", "test");
-		return cacheManager;
-	}
+    @Bean
+    @Primary
+    public CacheManager cacheManager() {
+        CacheManager cacheManager = new ConcurrentMapCacheManager("testAll", "test");
+        return cacheManager;
+    }
 }
